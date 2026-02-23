@@ -1,0 +1,16 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Personal AI Developer API",
+    "version": "1.0.0",
+    "description": "Build on Personal AI — memory-aware apps, agent execution, Flux interactive UIs, real-time feeds, and more.",
+    "contact": {
+      "name": "Continua AI",
+      "url": "https://continua.ai"
+    }
+  },
+  "servers": [
+    {"url": "https://api.personal.ai/v1", "description": "Production"}
+  ],
+  "_note": "This file is a snapshot. The canonical spec is served live at GET /v1/openapi.json."
+}

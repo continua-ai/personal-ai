@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal AI — Developer API</title>
+  <style>
+    :root {
+      --bg: #09090b; --surface: #18181b; --surface2: #27272a;
+      --border: #3f3f46; --text: #fafafa; --muted: #a1a1aa;
+      --accent: #818cf8; --accent2: #a78bfa;
+      --green: #4ade80; --blue: #60a5fa; --orange: #fb923c;
+      --red: #f87171; --pink: #f472b6; --cyan: #22d3ee;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent2); }
+    code { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.9em; }
+
+    /* Nav */
+    nav { position: sticky; top: 0; z-index: 10; background: rgba(9,9,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 32px; }
+    nav .inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    nav .logo { font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+    nav .logo span { background: linear-gradient(135deg, var(--accent), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav .links { display: flex; gap: 24px; font-size: 14px; color: var(--muted); }
+    nav .links a:hover { color: var(--text); }
+    .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background: rgba(129,140,248,0.15); color: var(--accent); margin-left: 8px; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 80px 24px 64px; max-width: 720px; margin: 0 auto; }
+    .hero h1 { font-size: 48px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
+    .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent), var(--cyan), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: var(--muted); font-size: 18px; margin-bottom: 32px; }
+    .hero .cta { display: inline-flex; gap: 12px; }
+    .hero .cta a { padding: 10px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; transition: all 0.15s; }
+    .hero .cta .primary { background: var(--accent); color: var(--bg); }
+    .hero .cta .primary:hover { background: var(--accent2); }
+    .hero .cta .secondary { border: 1px solid var(--border); color: var(--text); }
+    .hero .cta .secondary:hover { border-color: var(--accent); }
+    .hero .quickstart { margin-top: 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; text-align: left; }
+    .hero .quickstart code { display: block; color: var(--green); white-space: pre; overflow-x: auto; line-height: 1.8; }
+    .hero .quickstart .comment { color: var(--muted); }
+
+    /* Grid */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-title { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 48px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; padding-bottom: 64px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: border-color 0.2s, transform 0.15s; }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card .icon { font-size: 28px; margin-bottom: 12px; }
+    .card h3 { font-size: 18px; margin-bottom: 6px; }
+    .card p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+    .card .endpoints { display: flex; flex-direction: column; gap: 4px; }
+    .card .ep { display: flex; align-items: center; gap: 8px; font-size: 13px; font-family: 'JetBrains Mono', monospace; }
+    .method { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; min-width: 42px; text-align: center; letter-spacing: 0.5px; }
+    .method.get { background: rgba(96,165,250,0.15); color: var(--blue); }
+    .method.post { background: rgba(74,222,128,0.15); color: var(--green); }
+    .method.put { background: rgba(251,146,60,0.15); color: var(--orange); }
+    .method.del { background: rgba(248,113,113,0.15); color: var(--red); }
+
+    /* Pricing */
+    .pricing { padding: 64px 0; }
+    .pricing table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+    .pricing th { padding: 14px 20px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); background: var(--surface2); }
+    .pricing td { padding: 14px 20px; border-top: 1px solid var(--border); font-size: 14px; }
+    .pricing .highlight { color: var(--accent); font-weight: 600; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--muted); font-size: 14px; margin-top: 64px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="inner">
+      <div class="logo">🧠 <span>Personal AI</span> <span class="badge">v1</span></div>
+      <div class="links">
+        <a href="https://github.com/continua-ai/personal-ai">GitHub</a>
+        <a href="../docs/api-reference.md">API Reference</a>
+        <a href="../openapi/openapi.json">OpenAPI</a>
+        <a href="https://app.personal.ai/settings/api">Get API Key</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Build on the AI that <em>knows you</em></h1>
+    <p>Memory, agent execution, Flux apps, real-time feeds, and more. Just HTTP — no SDK required.</p>
+    <div class="cta">
+      <a href="https://app.personal.ai/settings/api" class="primary">Get API Key</a>
+      <a href="../docs/getting-started.md" class="secondary">Quickstart →</a>
+    </div>
+    <div class="quickstart">
+      <code><span class="comment"># Ask your AI anything — it knows you</span>
+curl -X POST https://api.personal.ai/v1/agent/run \
+  -H "Authorization: Bearer cai_YOUR_KEY" \
+  -d '{"message": "What should I get Mom for her birthday?"}'</code>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title">The APIs</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🧩</div>
+        <h3>Memory</h3>
+        <p>Read, search, and shape everything your AI knows about you.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method get">GET</span> /memory/claims</div>
+          <div class="ep"><span class="method get">GET</span> /memory/claims/search?q=</div>
+          <div class="ep"><span class="method get">GET</span> /memory/claims/profile</div>
+          <div class="ep"><span class="method put">PUT</span> /memory/claims/{id}</div>
+          <div class="ep"><span class="method del">DEL</span> /memory/claims/{id}</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">🤖</div>
+        <h3>Agent</h3>
+        <p>Run your AI with full memory context. SSE streaming supported.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method post">POST</span> /agent/run</div>
+          <div class="ep"><span class="method post">POST</span> /agent/message</div>
+          <div class="ep"><span class="method get">GET</span> /agent/threads</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Flux</h3>
+        <p>Generate interactive apps from a sentence. Embed anywhere.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method post">POST</span> /flux/create</div>
+          <div class="ep"><span class="method post">POST</span> /flux/{app_id}/interact</div>
+          <div class="ep"><span class="method get">GET</span> /flux/{app_id}/state</div>
+          <div class="ep"><span class="method get">GET</span> /flux/{app_id}/ws</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">🔌</div>
+        <h3>Connectors</h3>
+        <p>61+ services. One-click auth. Credential health checks. Auto-generated skills.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method get">GET</span> /catalog</div>
+          <div class="ep"><span class="method post">POST</span> /catalog/connect</div>
+          <div class="ep"><span class="method get">GET</span> /catalog/connections</div>
+          <div class="ep"><span class="method post">POST</span> /catalog/connections/{s}/verify</div>
+          <div class="ep"><span class="method del">DEL</span> /catalog/connections/{s}</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">📡</div>
+        <h3>Feeds</h3>
+        <p>Publish memory streams. Subscribers' AIs pay credits. You earn 70%.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method post">POST</span> /feeds</div>
+          <div class="ep"><span class="method post">POST</span> /feeds/{id}/publish</div>
+          <div class="ep"><span class="method get">GET</span> /feeds/discover</div>
+          <div class="ep"><span class="method post">POST</span> /feeds/{id}/subscribe</div>
+          <div class="ep"><span class="method get">GET</span> /feeds/{id}/stream</div>
+          <div class="ep"><span class="method get">GET</span> /feeds/{id}/ws</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">🔔</div>
+        <h3>Webhooks</h3>
+        <p>Real-time notifications, HMAC-signed. 3 retries + auto-disable.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method post">POST</span> /webhooks</div>
+          <div class="ep"><span class="method get">GET</span> /webhooks</div>
+          <div class="ep"><span class="method del">DEL</span> /webhooks/{id}</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Analytics & Billing</h3>
+        <p>Publisher earnings, credit balance, consumption tracking.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method get">GET</span> /feeds/analytics/overview</div>
+          <div class="ep"><span class="method get">GET</span> /feeds/earnings</div>
+          <div class="ep"><span class="method get">GET</span> /credits/balance</div>
+          <div class="ep"><span class="method get">GET</span> /credits/costs</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">📦</div>
+        <h3>Channels</h3>
+        <p>Curate feed bundles with markup. Build a media empire.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method post">POST</span> /channels</div>
+          <div class="ep"><span class="method get">GET</span> /channels</div>
+          <div class="ep"><span class="method post">POST</span> /channels/{id}/subscribe</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon">🔑</div>
+        <h3>OAuth 2.0</h3>
+        <p>Third-party access to users' AI. Standard auth code flow.</p>
+        <div class="endpoints">
+          <div class="ep"><span class="method post">POST</span> /oauth/apps</div>
+          <div class="ep"><span class="method get">GET</span> /oauth/authorize</div>
+          <div class="ep"><span class="method post">POST</span> /oauth/token</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing">
+      <h2 class="section-title">Pricing</h2>
+      <table>
+        <tr><th>Plan</th><th>Price</th><th>Credits/mo</th><th>Requests/min</th></tr>
+        <tr><td>Free</td><td>$0</td><td>1,000</td><td>100</td></tr>
+        <tr><td class="highlight">Developer</td><td>$29/mo</td><td>50,000</td><td>5,000</td></tr>
+        <tr><td class="highlight">Team</td><td>$99/mo</td><td>500,000</td><td>20,000</td></tr>
+        <tr><td>Enterprise</td><td>Custom</td><td>10M+</td><td>100,000</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Built by <a href="https://continua.ai">Continua AI</a> · <a href="https://github.com/continua-ai/personal-ai">GitHub</a> · <a href="../openapi/openapi.json">OpenAPI Spec</a></p>
+      <p style="margin-top: 8px; font-size: 12px; color: var(--muted);">The AI that remembers who you are.</p>
+    </div>
+  </footer>
+</body>
+</html>
