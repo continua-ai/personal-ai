@@ -5,7 +5,7 @@ import { createHmac } from "crypto";
 import { createServer } from "http";
 
 const API_KEY = process.env.API_KEY!;
-const BASE = process.env.API_BASE || "https://api.personal.ai/v1";
+const BASE = process.env.API_BASE || "https://api.continua.ai/personal/v1";
 
 // In production, use your public HTTPS URL.
 const WEBHOOK_URL = process.env.WEBHOOK_URL || "https://yourapp.ngrok.io/webhook";

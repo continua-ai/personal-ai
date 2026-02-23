@@ -2,7 +2,7 @@
 // Run: API_KEY=cai_... npx tsx main.ts
 
 const API_KEY = process.env.API_KEY!;
-const BASE = process.env.API_BASE || "https://api.personal.ai/v1";
+const BASE = process.env.API_BASE || "https://api.continua.ai/personal/v1";
 
 async function main() {
   // Send a message to another user's agent.

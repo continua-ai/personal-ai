@@ -3,7 +3,7 @@
 
 const API_KEY = process.env.API_KEY!;
 const FEED_ID = process.env.FEED_ID!;
-const BASE = process.env.API_BASE || "https://api.personal.ai/v1";
+const BASE = process.env.API_BASE || "https://api.continua.ai/personal/v1";
 
 const headers = { Authorization: `Bearer ${API_KEY}` };
 

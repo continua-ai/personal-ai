@@ -78,7 +78,7 @@
         <a href="https://github.com/continua-ai/personal-ai">GitHub</a>
         <a href="../docs/api-reference.md">API Reference</a>
         <a href="../openapi/openapi.json">OpenAPI</a>
-        <a href="https://app.personal.ai/settings/api">Get API Key</a>
+        <a href="https://app.continua.ai/settings/api">Get API Key</a>
       </div>
     </div>
   </nav>
@@ -87,12 +87,12 @@
     <h1>Build on the AI that <em>knows you</em></h1>
     <p>Memory, agent execution, Flux apps, real-time feeds, and more. Just HTTP — no SDK required.</p>
     <div class="cta">
-      <a href="https://app.personal.ai/settings/api" class="primary">Get API Key</a>
+      <a href="https://app.continua.ai/settings/api" class="primary">Get API Key</a>
       <a href="../docs/getting-started.md" class="secondary">Quickstart →</a>
     </div>
     <div class="quickstart">
       <code><span class="comment"># Ask your AI anything — it knows you</span>
-curl -X POST https://api.personal.ai/v1/agent/run \
+curl -X POST https://api.continua.ai/personal/v1/agent/run \
   -H "Authorization: Bearer cai_YOUR_KEY" \
   -d '{"message": "What should I get Mom for her birthday?"}'</code>
     </div>
@@ -204,13 +204,7 @@ curl -X POST https://api.personal.ai/v1/agent/run \
 
     <div class="pricing">
       <h2 class="section-title">Pricing</h2>
-      <table>
-        <tr><th>Plan</th><th>Price</th><th>Credits/mo</th><th>Requests/min</th></tr>
-        <tr><td>Free</td><td>$0</td><td>1,000</td><td>100</td></tr>
-        <tr><td class="highlight">Developer</td><td>$29/mo</td><td>50,000</td><td>5,000</td></tr>
-        <tr><td class="highlight">Team</td><td>$99/mo</td><td>500,000</td><td>20,000</td></tr>
-        <tr><td>Enterprise</td><td>Custom</td><td>10M+</td><td>100,000</td></tr>
-      </table>
+      <p style="text-align:center; color: var(--muted); font-size: 15px;">Free tier included. See <a href="https://continua.ai/pricing" style="color: var(--accent);">continua.ai/pricing</a> for plans and credit costs.</p>
     </div>
   </div>
 

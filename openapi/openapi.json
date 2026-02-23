@@ -10,7 +10,7 @@
     }
   },
   "servers": [
-    {"url": "https://api.personal.ai/v1", "description": "Production"}
+    {"url": "https://api.continua.ai/personal/v1", "description": "Production"}
   ],
   "_note": "This file is a snapshot. The canonical spec is served live at GET /v1/openapi.json."
 }

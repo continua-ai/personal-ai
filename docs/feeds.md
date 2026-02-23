@@ -16,7 +16,7 @@ This isn't social media. Nobody scrolls feeds. Your AI decides which feeds matte
 ## Create a feed
 
 ```bash
-curl -X POST https://api.personal.ai/v1/feeds \
+curl -X POST https://api.continua.ai/personal/v1/feeds \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -60,7 +60,7 @@ curl -X POST https://api.personal.ai/v1/feeds \
 ## Publish an update
 
 ```bash
-curl -X POST https://api.personal.ai/v1/feeds/{feed_id}/publish \
+curl -X POST https://api.continua.ai/personal/v1/feeds/{feed_id}/publish \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -97,7 +97,7 @@ curl ".../v1/feeds/discover?type=status&tag=food&lat=37.77&lng=-122.42&radius_m=
 ## Subscribe
 
 ```bash
-curl -X POST https://api.personal.ai/v1/feeds/{feed_id}/subscribe \
+curl -X POST https://api.continua.ai/personal/v1/feeds/{feed_id}/subscribe \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
   -d '{"budget": 100}'
@@ -112,7 +112,7 @@ When spending hits the budget, delivery stops — your AI can reallocate budget 
 ### Server-Sent Events (SSE)
 
 ```bash
-curl https://api.personal.ai/v1/feeds/{feed_id}/stream \
+curl https://api.continua.ai/personal/v1/feeds/{feed_id}/stream \
   -H "Authorization: Bearer $KEY" \
   -H "Accept: text/event-stream"
 ```
@@ -123,7 +123,7 @@ Sends `event: latest` with the most recent item, then `event: update` for each n
 
 ```javascript
 const ws = new WebSocket(
-  `wss://api.personal.ai/v1/feeds/${feedId}/ws?token=${apiKey}`
+  `wss://api.continua.ai/personal/v1/feeds/${feedId}/ws?token=${apiKey}`
 );
 
 ws.onmessage = (event) => {
@@ -140,7 +140,7 @@ Both require an active subscription.
 Curators bundle feeds into themed packages with optional markup:
 
 ```bash
-curl -X POST https://api.personal.ai/v1/channels \
+curl -X POST https://api.continua.ai/personal/v1/channels \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
   -d '{

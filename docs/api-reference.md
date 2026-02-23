@@ -1,6 +1,6 @@
 # API Reference
 
-Base URL: `https://api.personal.ai/v1`
+Base URL: `https://api.continua.ai/personal/v1`
 
 All requests require `Authorization: Bearer cai_YOUR_KEY` unless noted otherwise.
 
@@ -132,7 +132,7 @@ Content-Type: application/json
 ```json
 {
   "app_id": "flux-abc123",
-  "app_url": "https://flux.personal.ai/flux-abc123",
+  "app_url": "https://flux.continua.ai/flux-abc123",
   "embed": "<iframe src=\"...\" width=\"100%\" height=\"600\"></iframe>"
 }
 ```
@@ -156,7 +156,7 @@ GET /flux/{app_id}/state
 
 ```javascript
 const ws = new WebSocket(
-  `wss://api.personal.ai/v1/flux/${appId}/ws?token=${apiKey}`
+  `wss://api.continua.ai/personal/v1/flux/${appId}/ws?token=${apiKey}`
 );
 ws.onmessage = (e) => console.log(JSON.parse(e.data));
 ```
@@ -259,7 +259,7 @@ Requires active subscription. Sends `event: latest` (initial) then `event: updat
 
 ```javascript
 const ws = new WebSocket(
-  `wss://api.personal.ai/v1/feeds/${feedId}/ws?token=${apiKey}`
+  `wss://api.continua.ai/personal/v1/feeds/${feedId}/ws?token=${apiKey}`
 );
 ```
 
@@ -338,16 +338,16 @@ Requires scope: `catalog:write`
 
 ```bash
 # API key auth
-curl -X POST https://api.personal.ai/v1/catalog/connect \
+curl -X POST https://api.continua.ai/personal/v1/catalog/connect \
   -H "Authorization: Bearer $API_KEY" \
   -d '{"entry_id": "openai", "api_key": "sk-..."}'
 
 # Linking code auth
-curl -X POST https://api.personal.ai/v1/catalog/connect \
+curl -X POST https://api.continua.ai/personal/v1/catalog/connect \
   -d '{"entry_id": "spotify", "linking_code": "123456"}'
 
 # OAuth (returns redirect URL)
-curl -X POST https://api.personal.ai/v1/catalog/connect \
+curl -X POST https://api.continua.ai/personal/v1/catalog/connect \
   -d '{"entry_id": "google-calendar"}'
 # Response: {"status": "oauth_redirect", "oauth_url": "https://..."}
 ```

@@ -12,10 +12,10 @@ Keys are 52 characters: `cai_` prefix + 48 hex characters (24 random bytes). The
 
 ### Create a key
 
-From the dashboard at [app.personal.ai/settings/api](https://app.personal.ai/settings/api), or programmatically:
+From the dashboard at [app.continua.ai/settings/api](https://app.continua.ai/settings/api), or programmatically:
 
 ```bash
-curl -X POST https://api.personal.ai/api/keys \
+curl -X POST https://api.continua.ai/personal/api/keys \
   -H "X-User-Email: you@example.com" \
   -H "Content-Type: application/json" \
   -d '{"name": "my-app", "scopes": ["memory:read", "agent:run"]}'
@@ -43,10 +43,10 @@ WebSocket connections can't send the `Authorization` header. Pass the API key as
 
 ```javascript
 // Feed stream
-new WebSocket(`wss://api.personal.ai/v1/feeds/${feedId}/ws?token=${apiKey}`)
+new WebSocket(`wss://api.continua.ai/personal/v1/feeds/${feedId}/ws?token=${apiKey}`)
 
 // Flux real-time updates
-new WebSocket(`wss://api.personal.ai/v1/flux/${appId}/ws?token=${apiKey}`)
+new WebSocket(`wss://api.continua.ai/personal/v1/flux/${appId}/ws?token=${apiKey}`)
 ```
 
 The server validates the key and checks scopes before upgrading the connection.
@@ -58,7 +58,7 @@ For apps that access other users' Personal AI on their behalf. Standard authoriz
 ### Register your app
 
 ```bash
-curl -X POST https://api.personal.ai/oauth/apps \
+curl -X POST https://api.continua.ai/personal/oauth/apps \
   -H "X-User-Email: dev@yourapp.com" \
   -H "Content-Type: application/json" \
   -d '{
@@ -74,7 +74,7 @@ Save the `client_id` and `client_secret`.
 **Step 1** — Redirect user to authorize:
 
 ```
-https://api.personal.ai/oauth/authorize
+https://api.continua.ai/personal/oauth/authorize
   ?client_id=cai_app_...
   &redirect_uri=https://yourapp.com/callback
   &scope=memory:read+agent:run
@@ -86,7 +86,7 @@ https://api.personal.ai/oauth/authorize
 **Step 3** — Exchange code for token:
 
 ```bash
-curl -X POST https://api.personal.ai/oauth/token \
+curl -X POST https://api.continua.ai/personal/oauth/token \
   -H "Content-Type: application/json" \
   -d '{
     "grant_type": "authorization_code",
@@ -100,7 +100,7 @@ curl -X POST https://api.personal.ai/oauth/token \
 **Step 4** — Use the access token like any other API key:
 
 ```bash
-curl https://api.personal.ai/v1/memory/claims \
+curl https://api.continua.ai/personal/v1/memory/claims \
   -H "Authorization: Bearer cai_THE_ACCESS_TOKEN"
 ```
 

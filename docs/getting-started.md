@@ -4,7 +4,7 @@ You can go from zero to talking to your AI in about 90 seconds.
 
 ## 1. Get an API key
 
-[app.personal.ai/settings/api](https://app.personal.ai/settings/api) → **Create API Key** → select scopes → copy.
+[app.continua.ai/settings/api](https://app.continua.ai/settings/api) → **Create API Key** → select scopes → copy.
 
 The key starts with `cai_` and is shown exactly once. Store it somewhere safe.
 
@@ -13,7 +13,7 @@ The key starts with `cai_` and is shown exactly once. Store it somewhere safe.
 ```bash
 export KEY="cai_your_key_here"
 
-curl https://api.personal.ai/v1/memory/claims/profile \
+curl https://api.continua.ai/personal/v1/memory/claims/profile \
   -H "Authorization: Bearer $KEY" | jq .
 ```
 
@@ -22,7 +22,7 @@ This returns a personality profile derived from everything your AI has learned a
 ## 3. Search your memory
 
 ```bash
-curl "https://api.personal.ai/v1/memory/claims/search?q=favorite+restaurants" \
+curl "https://api.continua.ai/personal/v1/memory/claims/search?q=favorite+restaurants" \
   -H "Authorization: Bearer $KEY" | jq '.[].content'
 ```
 
@@ -30,13 +30,13 @@ curl "https://api.personal.ai/v1/memory/claims/search?q=favorite+restaurants" \
 
 ```bash
 # Synchronous
-curl -X POST https://api.personal.ai/v1/agent/run \
+curl -X POST https://api.continua.ai/personal/v1/agent/run \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
   -d '{"message": "What should I have for dinner tonight?"}'
 
 # Streaming (SSE) — responses appear as they're generated
-curl -X POST https://api.personal.ai/v1/agent/run \
+curl -X POST https://api.continua.ai/personal/v1/agent/run \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
   -H "Accept: text/event-stream" \
@@ -47,7 +47,7 @@ curl -X POST https://api.personal.ai/v1/agent/run \
 
 ```bash
 # A Flux app — interactive UI from a sentence
-curl -X POST https://api.personal.ai/v1/flux/create \
+curl -X POST https://api.continua.ai/personal/v1/flux/create \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
   -d '{"prompt": "Movie night vote for Saturday"}' | jq .app_url
@@ -58,7 +58,7 @@ Open the URL — it's a live, shareable, interactive app.
 ## 6. Discover feeds nearby
 
 ```bash
-curl "https://api.personal.ai/v1/feeds/discover?lat=37.77&lng=-122.42&radius_m=2000" \
+curl "https://api.continua.ai/personal/v1/feeds/discover?lat=37.77&lng=-122.42&radius_m=2000" \
   -H "Authorization: Bearer $KEY" | jq '.[].name'
 ```
 

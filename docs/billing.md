@@ -6,55 +6,29 @@ Every API call costs credits. Credits are a single currency — they absorb the 
 
 ## Plans
 
-| Plan | Price | Credits/mo | Requests/min | Projects | Members |
-|---|---|---|---|---|---|
-| **Free** | $0 | 1,000 | 100 | 1 | 2 |
-| **Developer** | $29/mo | 50,000 | 5,000 | 5 | 5 |
-| **Team** | $99/mo | 500,000 | 20,000 | 20 | 25 |
-| **Enterprise** | Custom | 10M+ | 100,000 | Unlimited | Unlimited |
+See [continua.ai/pricing](https://continua.ai/pricing) for current plans, credit allowances, and rate limits.
+
+A free tier is included — no credit card required.
 
 ## What things cost
 
-| Endpoint | Credits | Why |
-|---|---|---|
-| Memory reads | 1 | DB lookup |
-| Skills / catalog reads | 1 | DB lookup |
-| Attention / bandwidth | 1 | DB lookup |
-| Memory writes | 2 | Write + reindex |
-| Catalog connect | 2 | Write + auth |
-| Scheduling | 2 | Write + cron registration |
-| Flux interact / state | 2 | State mutation + fan-out |
-| P2P messaging | 3 | Delivery + storage |
-| Agent run | 5 | LLM inference + tool use |
-| Flux create | 10 | LLM generation + hosting |
-| Feed updates | 1–10 | Set by publisher per feed |
-| Webhooks, OpenAPI | 0 | Free |
-
-Get the current cost table programmatically:
+Get the current cost table programmatically (no auth required):
 
 ```bash
-curl https://api.personal.ai/v1/credits/costs   # no auth required
+curl https://api.continua.ai/personal/v1/credits/costs
 ```
 
 ## Check your balance
 
 ```bash
-curl https://api.personal.ai/v1/credits/balance \
+curl https://api.continua.ai/personal/v1/credits/balance \
   -H "Authorization: Bearer $KEY"
 ```
 
 ## Overage
 
 - **Free plan**: Hard block at 0 credits. Upgrade or wait for next month.
-- **Paid plans**: Overage allowed at declining per-credit rates:
-
-| Plan | Overage rate |
-|---|---|
-| Developer | $0.001/credit |
-| Team | $0.0008/credit |
-| Enterprise | $0.0005/credit |
-
-Overage is reported to Stripe as metered usage and billed at the end of the cycle.
+- **Paid plans**: Overage is allowed and billed at the end of the cycle as metered usage via Stripe.
 
 ## Publisher earnings
 
@@ -69,11 +43,11 @@ When you publish a feed, subscribers' AIs pay credits to consume your updates. Y
 ### Check your earnings
 
 ```bash
-curl https://api.personal.ai/v1/feeds/earnings \
+curl https://api.continua.ai/personal/v1/feeds/earnings \
   -H "Authorization: Bearer $KEY"
 
 # Specific period
-curl "https://api.personal.ai/v1/feeds/earnings?period=2026-01-01" \
+curl "https://api.continua.ai/personal/v1/feeds/earnings?period=2026-01-01" \
   -H "Authorization: Bearer $KEY"
 ```
 
@@ -84,7 +58,7 @@ Earnings are paid out monthly via Stripe Connect. Set up your payout account in 
 ## Transaction history
 
 ```bash
-curl https://api.personal.ai/v1/credits/transactions \
+curl https://api.continua.ai/personal/v1/credits/transactions \
   -H "Authorization: Bearer $KEY"
 ```
 

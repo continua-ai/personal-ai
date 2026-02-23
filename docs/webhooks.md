@@ -5,7 +5,7 @@ Get notified when things happen in Personal AI — agent runs complete, memory c
 ## Create a subscription
 
 ```bash
-curl -X POST https://api.personal.ai/v1/webhooks \
+curl -X POST https://api.continua.ai/personal/v1/webhooks \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
   -d '{

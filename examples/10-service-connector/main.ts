@@ -7,7 +7,7 @@
 // 4. Verify a specific connection
 // 5. Disconnect a service
 
-const API = "https://api.personal.ai/v1";
+const API = process.env.API_BASE || "https://api.continua.ai/personal/v1";
 const KEY = process.env.PERSONAL_AI_KEY!;
 
 const headers = {

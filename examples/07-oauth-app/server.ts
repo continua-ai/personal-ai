@@ -6,8 +6,8 @@ import { createServer } from "http";
 const CLIENT_ID = process.env.CLIENT_ID!;
 const CLIENT_SECRET = process.env.CLIENT_SECRET!;
 const REDIRECT_URI = "http://localhost:4000/callback";
-const AUTH_BASE = process.env.AUTH_BASE || "https://api.personal.ai";
-const API_BASE = process.env.API_BASE || "https://api.personal.ai/v1";
+const AUTH_BASE = process.env.AUTH_BASE || "https://api.continua.ai/personal";
+const API_BASE = process.env.API_BASE || "https://api.continua.ai/personal/v1";
 
 const server = createServer(async (req, res) => {
   const url = new URL(req.url!, `http://localhost:4000`);
